@@ -1,40 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import "../assets/css/post.css";
-import { busca } from '../api/api';
-import { useParams, useHistory } from 'react-router-dom';
+import React, {useState, useEffect } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+import { busca } from '../api/api'
+import '../assets/css/post.css'
 
-function Post() {
+const Post = () => { 
+  let history = useHistory()
+  const { id } = useParams()
+  const[post, setPost] = useState({})
 
-    let history = useHistory()
+  useEffect(() => {
+    busca(`/posts/${id}`, setPost)
+    .catch(()=>{
+      history.push('/404')
+    })
+  }, [id])
 
-    const { id } = useParams();
-
-    const [post, setPost] = useState({});
-
-    useEffect(() => {
-        busca(`/posts/${id}`, setPost)
-            .catch(() => {
-                history.push('/404')
-            })
-
-    }, [id]);
-
-    return (
-
-        <main className="container flex flex--centro">
-
-            <article className="cartao post">
-
-                <h2 className="cartao__titulo">{post.title}</h2>
-                <p className="cartao__texto">{post.body}</p>
-
-            </article>
-
-        </main>
-
-    )
-
-
+  return(
+    <main className="container flex flex--centro">
+      <article className="cartao post">
+        <h2 className="cartao__titulo">{post.title}</h2>
+        <p className="carta__texto">{post.body}</p>
+      </article>
+    </main>
+  )
 }
 
-export default Post;
+export default Post

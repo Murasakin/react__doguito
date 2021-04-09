@@ -1,7 +1,6 @@
 import React from 'react'
 import ListaCategorias from '../components/ListaCategorias'
 import ListaPost from '../components/ListaPost'
-
 const Home = () => {
 
   return (
